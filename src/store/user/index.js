@@ -1,6 +1,5 @@
 import {createAsyncThunk, createEntityAdapter, createSlice} from "@reduxjs/toolkit";
 import {LoadingStatuses} from "../../constants/LoadingStatuses";
-import {useSelector} from "react-redux";
 import axios from "axios";
 
 const usersAdapter = createEntityAdapter();
@@ -33,7 +32,7 @@ export const userSlice = createSlice({
                 state.status = LoadingStatuses.pending;
             })
             .addCase(fetchUsers.fulfilled, (state, { payload }) => {
-                usersAdapter.setMany(state, payload);
+                usersAdapter.setAll(state, payload);
                 state.status = LoadingStatuses.success;
             })
             .addCase(fetchUsers.rejected, (state, { payload }) => {

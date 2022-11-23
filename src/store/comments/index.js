@@ -1,21 +1,22 @@
 import {createAsyncThunk, createEntityAdapter, createSlice} from "@reduxjs/toolkit";
 import {LoadingStatuses} from "../../constants/LoadingStatuses";
 import axios from "axios";
-import {selectorsUser} from "../user";
 
 const commentsAdapter = createEntityAdapter();
 
 
 export const fetchComments = createAsyncThunk(
     "comment/fetchComments",
-    (postId, {getState, rejectWithValue}) => {
+    async (postId, {getState, rejectWithValue}) => {
         if (selectorsComment.selectIds(getState()).length > 0) {
             return rejectWithValue(LoadingStatuses.earlyAdded);
         }
 
-        return axios.get(`https://jsonplaceholder.typicode.com/comments${postId && `?postId=${postId}`}`)
-            .then(response => response.data);
 
+        return await axios.get(`https://jsonplaceholder.typicode.com/comments?postId=${postId}`)
+            .then(response => {
+                return response.data;
+            });
     }
 );
 
@@ -34,7 +35,7 @@ export const commentSlice = createSlice({
                 state.status = LoadingStatuses.pending;
             })
             .addCase(fetchComments.fulfilled, (state, { payload }) => {
-                commentsAdapter.setMany(state, payload);
+                commentsAdapter.setAll(state, payload);
                 state.status = LoadingStatuses.success;
             })
             .addCase(fetchComments.rejected, (state, { payload }) => {
