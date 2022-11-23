@@ -4,13 +4,13 @@ import axios from "axios";
 
 export const fetchPosts = createAsyncThunk(
     "post/fetchPosts",
-     (_,{getState,rejectWithValue}) => {
+     (postId="", {getState,rejectWithValue}) => {
         // if (getState().post.id.length > 0) {
         //     return rejectWithValue(LoadingStatuses.earlyAdded);
         // }
 
 
-         return axios.get(`https://jsonplaceholder.typicode.com/posts/`)
+         return axios.get(`https://jsonplaceholder.typicode.com/posts/${postId}`)
                 .then(response => {
                     return response.data;
                 });
