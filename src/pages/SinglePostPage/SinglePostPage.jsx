@@ -1,23 +1,48 @@
 import {useParams} from "react-router-dom";
-import {useSelector} from "react-redux";
-import {selectorIsPostLoading, selectorsPost} from "../../store/post";
-import {selectorsUser} from "../../store/user";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchPosts, selectorIsPostLoading, selectorsPost} from "../../store/post";
+import {fetchUsers, selectorsUser} from "../../store/user";
+import React, {useEffect} from "react";
+import {fetchComments, selectorsComment} from "../../store/comments";
 
 export const SinglePostPage = () => {
     const postId = Number(useParams().id);
-    const {userId, title, body} = useSelector(state =>  selectorsPost.selectById(state, postId));
-    const {name} = useSelector(state => selectorsUser.selectById(state, userId));
+    const post = useSelector(state => selectorsPost.selectById(state, postId));
+    const user = useSelector(state => selectorsUser.selectById(state, post?.userId));
 
-    const isLoading = useSelector(selectorIsPostLoading);
+    const commentIds = useSelector(selectorsComment.selectIds);
+    const comments = useSelector(selectorsComment.selectEntities);
+
+    const isLoading = useSelector((state) =>
+       selectorIsPostLoading(state));
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchUsers());
+        dispatch(fetchPosts(postId));
+        dispatch(fetchComments(postId));
+    }, [postId]);
+
+    console.log(isLoading);
 
     if (isLoading){
         return (<div>Loading...</div>);
     }
+
+    if (!commentIds.length || user.name || post.userId) return;
+
     return (
         <>
-            <h3>{name}</h3>
-            <h1>{title}</h1>
-            <p>{body}</p>
+            <h3>{user?.name}</h3>
+            <h1>{post?.title}</h1>
+            <p>{post?.body}</p>
+            {commentIds.map(id =>
+                <div key={id}>
+                   <h3>{comments[id].name}</h3>
+                   <h4>{comments[id].body}</h4>
+                </div>
+            )}
         </>
     );
 }

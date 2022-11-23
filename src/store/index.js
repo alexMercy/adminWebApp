@@ -5,6 +5,7 @@ import {userSlice} from "./user";
 import {todoSlice} from "./todo";
 import {postSlice} from "./post";
 import {albumSlice} from "./album";
+import {commentSlice} from "./comments";
 
 
 const rootReducer = combineReducers({
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
     post: postSlice.reducer,
     album: albumSlice.reducer,
     todo: todoSlice.reducer,
+    comment: commentSlice.reducer,
 });
 
 export const store = configureStore({

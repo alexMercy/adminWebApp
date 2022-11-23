@@ -1,14 +1,14 @@
 import {createAsyncThunk, createEntityAdapter, createSlice} from "@reduxjs/toolkit";
 import {LoadingStatuses} from "../../constants/LoadingStatuses";
 import axios from "axios";
+import {selectorsUser} from "../user";
 
 export const fetchPosts = createAsyncThunk(
     "post/fetchPosts",
      (postId="", {getState,rejectWithValue}) => {
-        // if (getState().post.id.length > 0) {
-        //     return rejectWithValue(LoadingStatuses.earlyAdded);
-        // }
-
+         if (selectorsPost.selectIds(getState()).length > 0) {
+             return rejectWithValue(LoadingStatuses.earlyAdded);
+         }
 
          return axios.get(`https://jsonplaceholder.typicode.com/posts/${postId}`)
                 .then(response => {
@@ -31,7 +31,7 @@ export const postSlice = createSlice({
                 state.status = LoadingStatuses.pending;
             })
             .addCase(fetchPosts.fulfilled, (state, {payload} ) => {
-                postsAdapter.addMany(state, payload);
+                postsAdapter.setMany(state, payload);
                 state.status = LoadingStatuses.success;
 
             })

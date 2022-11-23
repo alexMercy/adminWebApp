@@ -8,29 +8,16 @@ const usersAdapter = createEntityAdapter();
 
 export const fetchUsers = createAsyncThunk(
     "user/fetchUsers",
-    (_, {rejectWithValue}) => {
-        // const userIds = useSelector(usersAdapter.getSelectors(store => store.post).selectIds);
-        // if (userIds.length > 0) {
-        //     return rejectWithValue(LoadingStatuses.earlyAdded);
-        // }
+    (_, {getState, rejectWithValue}) => {
+        if (selectorsUser.selectIds(getState()).length > 0) {
+            return rejectWithValue(LoadingStatuses.earlyAdded);
+        }
 
         return axios.get("https://jsonplaceholder.typicode.com/users")
             .then(response => response.data);
     }
 );
 
-export const fetchUser = createAsyncThunk(
-    "user/fetchUser",
-    (userId, {rejectWithValue}) => {
-        // const userIds = useSelector(usersAdapter.getSelectors(store => store.post).selectIds);
-        // if (userIds.length > 0) {
-        //     return rejectWithValue(LoadingStatuses.earlyAdded);
-        // }
-
-        return axios.get(`https://jsonplaceholder.typicode.com/users/${userId}`)
-            .then(response => response.data);
-    }
-);
 
 
 export const userSlice = createSlice({
@@ -46,23 +33,10 @@ export const userSlice = createSlice({
                 state.status = LoadingStatuses.pending;
             })
             .addCase(fetchUsers.fulfilled, (state, { payload }) => {
-                usersAdapter.addMany(state, payload);
+                usersAdapter.setMany(state, payload);
                 state.status = LoadingStatuses.success;
             })
             .addCase(fetchUsers.rejected, (state, { payload }) => {
-                state.status =
-                    payload === LoadingStatuses.earlyAdded
-                        ? LoadingStatuses.success
-                        : LoadingStatuses.failed;
-            })
-            .addCase(fetchUser.pending, (state) => {
-                state.status = LoadingStatuses.pending;
-            })
-            .addCase(fetchUser.fulfilled, (state, { payload }) => {
-                usersAdapter.addOne(state, payload);
-                state.status = LoadingStatuses.success;
-            })
-            .addCase(fetchUser.rejected, (state, { payload }) => {
                 state.status =
                     payload === LoadingStatuses.earlyAdded
                         ? LoadingStatuses.success
@@ -71,3 +45,5 @@ export const userSlice = createSlice({
 });
 
 export const selectorsUser = usersAdapter.getSelectors(store => store.user);
+
+export const selectorIsUserLoading = (state) =>  state.user.status === LoadingStatuses.pending;
