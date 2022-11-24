@@ -1,8 +1,8 @@
 import {Post} from "../Post/Post";
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchPosts, selectorIsPostLoading, selectorsPost} from "../../store/post";
-import {fetchUsers, selectorsUser} from "../../store/user";
+import {selectorIsPostLoading, selectorsPost} from "../../store/post";
+import {fetchUsers} from "../../store/user";
 import styles from "./styles.module.css";
 
 export const Posts = () => {
@@ -25,6 +25,8 @@ export const Posts = () => {
                 <Post  key={postId} postId={postId}/>
             ))}
         </div>
+
+
 
     );
 }

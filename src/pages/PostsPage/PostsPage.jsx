@@ -6,7 +6,6 @@ import {fetchPosts} from "../../store/post";
 
 export const PostsPage = () => {
     const dispatch = useDispatch();
-
     useEffect(() => {
         dispatch(fetchPosts())
     },[]);
