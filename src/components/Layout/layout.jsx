@@ -1,7 +1,23 @@
 import {Link, Outlet, useLocation} from "react-router-dom";
-import {Col, ConfigProvider, Layout, Menu, Row, theme, FloatButton } from "antd";
+import {Col, ConfigProvider, Layout, Menu, Row, theme, FloatButton, Switch} from "antd";
 import {getItem} from "../../utils/getMenuItem";
+import {createContext, useContext, useState} from "react";
+import {BulbOutlined, BulbTwoTone} from "@ant-design/icons";
+
 const {Header, Content, Footer} = Layout;
+
+const themes = {
+    light: {
+        algorithm: {algorithm: theme.defaultAlgorithm},
+        background: "white",
+        status: "light",
+    },
+    dark: {
+        algorithm: {algorithm: theme.darkAlgorithm},
+        background: "#141414",
+        status: "dark",
+    }
+};
 
 
 const items = [
@@ -11,10 +27,15 @@ const items = [
 ]
 
 export const CustomLayout = () => {
+    const [currentTheme, setTheme] = useState(themes.light);
+    const ThemeProvider = createContext(currentTheme);
+
     const location = useLocation();
+    const themeContext = useContext(ThemeProvider);
 
     return (
-        <ConfigProvider theme={{algorithm: theme.defaultAlgorithm}}>
+
+        <ConfigProvider theme={themeContext.algorithm}>
             <Layout>
                 <Header style={{
                     position: 'sticky',
@@ -22,17 +43,27 @@ export const CustomLayout = () => {
                     zIndex: 1,
                     width: '100%',
                     padding:0,
-                    background: "white",
-                    // background: "#141414",
+                    // background: "white",
+                    background: `${themeContext.background}`,
                     marginBottom: 20
                 }}>
                     <Row>
-                        <Col span={2}></Col>
+                        <Col span={2}/>
                         <Col flex="auto">
                             <Menu
                                 mode="horizontal"
                                 defaultSelectedKeys={location.pathname.split("/")[1]}
                                 items={items}/>
+                        </Col>
+                        <Col span={2} style={{display:"flex", justifyContent:"center", alignItems: "center"}}>
+                            <ThemeProvider.Provider value={currentTheme}>
+                                <Switch
+                                    checkedChildren={<BulbTwoTone />}
+                                    unCheckedChildren={<BulbOutlined />}
+                                    defaultChecked={currentTheme.status === themes.light.status}
+                                    onChange={(checked) =>
+                                        setTheme(checked? themes.light : themes.dark )}/>
+                            </ThemeProvider.Provider>
                         </Col>
                     </Row>
                 </Header>

@@ -2,6 +2,7 @@ import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect} from "react";
 import {fetchUsers, selectorIsUserLoading} from "../../store/user";
 import {fetchAlbums, selectorIsAlbumLoading, selectorsAlbum} from "../../store/album";
+import {Album} from "../Album/Album";
 
 export const Albums = () => {
 
@@ -21,11 +22,8 @@ export const Albums = () => {
     }
 
     return (
-        <div>
-            {albumIds.map(albumId => (
-                <div>{albumId}</div>)
-                // <Album key={albumId} commentId={albumId}/>
-            )}
-        </div>
+        <div style={{display: "flex", flexDirection:"column", alignItems: "flex-start"}}>{albumIds.map(albumId => (
+            <Album key={albumId} albumId={albumId}/>
+        ))}</div>
     );
 }
