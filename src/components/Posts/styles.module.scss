@@ -3,3 +3,25 @@
   flex-direction: column;
   align-items: center;
 }
+
+.image {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 250px;
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 64px;
+  font-weight: 700;
+  color: white;
+  background: black;
+  padding: 0 50px 10px 50px;
+}

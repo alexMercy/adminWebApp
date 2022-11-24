@@ -5,6 +5,7 @@ import {Route, Routes} from "react-router-dom";
 import {TodosPage} from "./pages/TodosPage/TodosPage";
 import {AlbumsPage} from "./pages/AlbumsPage/AlbumsPage";
 import {SinglePostPage} from "./pages/SinglePostPage/SinglePostPage";
+import {NotFoundPage} from "./pages/NotFoundPage/NotFoundPage";
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
                 <Route path="/posts" element={<PostsPage/>}/>
                 <Route path="/posts/:id" element={<SinglePostPage/>}/>
                 <Route path="/albums" element={<AlbumsPage/>}/>
+                <Route path="*" element={<NotFoundPage/>}/>
             </Route>
         </Routes>);
 }

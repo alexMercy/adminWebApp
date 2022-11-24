@@ -1,20 +1,13 @@
 import {Link, Outlet, useLocation} from "react-router-dom";
-import {Col, ConfigProvider, Layout, Menu, Row, theme} from "antd";
+import {Col, ConfigProvider, Layout, Menu, Row, theme, FloatButton } from "antd";
+import {getItem} from "../../utils/getMenuItem";
 const {Header, Content, Footer} = Layout;
 
-function getItem(label, key, icon, children) {
-    return {
-        key,
-        icon,
-        children,
-        label,
-    };
-}
 
 const items = [
-    getItem(<Link to="/todos">Todos</Link>,"todos"),
-    getItem(<Link to="/posts">Posts</Link>,"posts"),
-    getItem(<Link to="/albums">Albums</Link>,"albums"),
+    getItem({label:<Link to="/todos">Todos</Link>, key: "todos"}),
+    getItem({label: <Link to="/posts">Posts</Link>, key: "posts"}),
+    getItem({label: <Link to="/albums">Albums</Link>, key: "albums"}),
 ]
 
 export const CustomLayout = () => {
@@ -30,6 +23,7 @@ export const CustomLayout = () => {
                     width: '100%',
                     padding:0,
                     background: "white",
+                    // background: "#141414",
                     marginBottom: 20
                 }}>
                     <Row>
@@ -43,7 +37,8 @@ export const CustomLayout = () => {
                     </Row>
                 </Header>
                 <Content>
-                        <Outlet/>
+                    <Outlet/>
+                    <FloatButton.BackTop tooltip={<div>Back on top</div>} style={{height: 60, width:60, display: "flex", justifyContent: "center", alignItems: "center"}}/>
                 </Content>
                 <Footer style={{ textAlign: 'center' }}>Task project. Created by ALEX. ©2022 </Footer>
             </Layout>

@@ -15,13 +15,13 @@ export const Post = ({postId}) => {
         <Link  to={"/posts/" + postId}>
             <Card
                 title={title}
-                extra={<div>More</div>}
+                extra={<div style={{color: '#1677ff'}}>More</div>}
                 bordered={false}
-                style={{ width: 1000 , marginBottom: 20, fontSize:14}}
+                style={{width: 900, marginBottom: 20, fontSize:14}}
                 hoverable="true"
             >
                 <p>{body}</p>
-                <h5 style={{textAlign: "right"}}>Actor: {name}</h5>
+                <h5 style={{textAlign: "right"}}>Author: {name}</h5>
             </Card>
         </Link>
     );

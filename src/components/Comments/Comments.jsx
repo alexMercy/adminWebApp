@@ -1,29 +1,36 @@
 import {Comment} from "../Comment/Comment";
 import React, {useEffect} from "react";
-import {fetchUsers, selectorIsUserLoading} from "../../store/user";
+import {selectorIsUserLoading} from "../../store/user";
 import {fetchComments, selectorIsCommentsLoading, selectorsComment} from "../../store/comments";
 import {useDispatch, useSelector} from "react-redux";
+import {Card, Skeleton} from "antd";
 
 export const Comments = ({postId}) => {
 
     const commentIds = useSelector(selectorsComment.selectIds);
+
     const isCommentsLoading = useSelector(selectorIsCommentsLoading);
-    const isUsersLoading = useSelector(selectorIsUserLoading);
+    const isUserLoading = useSelector(state => selectorIsUserLoading(state))
 
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchUsers());
         dispatch(fetchComments(postId));
     }, [postId]);
 
 
-    if (isCommentsLoading || isUsersLoading){
-        return (<div>Loading...</div>);
+    if (isUserLoading||isCommentsLoading){
+        return (
+            <Card  title="">
+                <Skeleton/>
+            </Card>);
     }
     return (
-        <>{commentIds.map(id =>
-            <Comment key={id} commentId={id}/>
-        )}</>
+        <Card  title="Comments">
+            <>{commentIds.map(id =>
+                <Comment key={id} commentId={id}/>
+            )}</>
+        </Card>
+
     );
 }
