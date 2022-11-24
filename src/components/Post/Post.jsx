@@ -15,7 +15,7 @@ export const Post = ({postId}) => {
         <Link  to={"/posts/" + postId}>
             <Card
                 title={title}
-                extra={<Link  to={"/posts/" + postId}>More</Link>}
+                extra={<div>More</div>}
                 bordered={false}
                 style={{ width: 1000 , marginBottom: 20, fontSize:14}}
                 hoverable="true"
