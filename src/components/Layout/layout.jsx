@@ -1,6 +1,7 @@
 import {Link, Outlet, useLocation} from "react-router-dom";
-import {Col, ConfigProvider, Layout, Menu, Row, theme, FloatButton, Switch} from "antd";
+import {Col, ConfigProvider, Layout, Menu, Row, theme, FloatButton, Switch, Affix} from "antd";
 import {getItem} from "../../utils/getMenuItem";
+import logo from "../../img/logo.png"
 import {createContext, useContext, useState} from "react";
 import {BulbOutlined, BulbTwoTone} from "@ant-design/icons";
 
@@ -38,23 +39,24 @@ export const CustomLayout = () => {
         <ConfigProvider theme={themeContext.algorithm}>
             <Layout>
                 <Header style={{
+                    opacity: 0.96,
                     position: 'sticky',
                     top: 0,
                     zIndex: 1,
                     width: '100%',
                     padding:0,
-                    // background: "white",
                     background: `${themeContext.background}`,
                     marginBottom: 20
                 }}>
                     <Row>
-                        <Col span={2}/>
-                        <Col flex="auto">
+                        <Col span={2}></Col>
+                        <Col span={5}>
                             <Menu
                                 mode="horizontal"
                                 defaultSelectedKeys={location.pathname.split("/")[1]}
                                 items={items}/>
                         </Col>
+                        <Col flex="auto"/>
                         <Col span={2} style={{display:"flex", justifyContent:"center", alignItems: "center"}}>
                             <ThemeProvider.Provider value={currentTheme}>
                                 <Switch
@@ -71,7 +73,9 @@ export const CustomLayout = () => {
                     <Outlet/>
                     <FloatButton.BackTop tooltip={<div>Back on top</div>} style={{height: 60, width:60, display: "flex", justifyContent: "center", alignItems: "center"}}/>
                 </Content>
-                <Footer style={{ textAlign: 'center' }}>Task project. Created by ALEX. ©2022 </Footer>
+                <Affix offsetBottom={0}>
+                    <Footer  style={{ textAlign: 'center' }}>Task project. Created by ALEX. ©2022 </Footer>
+                </Affix>
             </Layout>
         </ConfigProvider>
     )

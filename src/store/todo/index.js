@@ -1,16 +1,48 @@
 import {createAsyncThunk, createEntityAdapter, createSlice} from "@reduxjs/toolkit";
+import {LoadingStatuses} from "../../constants/LoadingStatuses";
+import axios from "axios";
 
 const todosAdapter = createEntityAdapter();
-const initialState = todosAdapter.getInitialState();
+
+
+export const fetchTodos = createAsyncThunk(
+    "todo/fetchTodos",
+    (_, {getState, rejectWithValue}) => {
+        if (selectorsTodo.selectIds(getState()).length > 0) {
+            return rejectWithValue(LoadingStatuses.earlyAdded);
+        }
+
+        return axios.get("https://jsonplaceholder.typicode.com/todos?_limit=10")
+            .then(response => response.data);
+    }
+);
+
 
 
 export const todoSlice = createSlice({
     name: "todo",
-    initialState,
+    initialState: todosAdapter.getInitialState(
+        {status: LoadingStatuses.idle}),
     reducers: {
-        addTodos: todosAdapter.addMany,
+        // addPosts: postsAdapter.addMany,
     },
+    extraReducers: (builder) =>
+        builder
+            .addCase(fetchTodos.pending, (state) => {
+                state.status = LoadingStatuses.pending;
+            })
+            .addCase(fetchTodos.fulfilled, (state, { payload }) => {
+                todosAdapter.addMany(state, payload);
+                state.status = LoadingStatuses.success;
+            })
+            .addCase(fetchTodos.rejected, (state, { payload }) => {
+                state.status =
+                    payload === LoadingStatuses.earlyAdded
+                        ? LoadingStatuses.success
+                        : LoadingStatuses.failed;
+            }),
 });
 
-export const actionsTodo = todoSlice.actions;
 export const selectorsTodo = todosAdapter.getSelectors(store => store.todo);
+
+export const selectorIsTodoLoading = (state) =>  state.todo.status === LoadingStatuses.pending;

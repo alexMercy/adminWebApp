@@ -5,7 +5,9 @@ import {selectorIsPostLoading, selectorsPost} from "../../store/post";
 import {fetchUsers} from "../../store/user";
 import styles from "./styles.module.css";
 import image from '../../img/postsBackground.jpg';
-import {Card, Skeleton} from "antd";
+import {Card, Skeleton, Typography} from "antd";
+
+const { Text } = Typography;
 
 export const Posts = () => {
     const postsIds = useSelector(selectorsPost.selectIds);
@@ -37,7 +39,9 @@ export const Posts = () => {
     return (
         <div className={styles.root}>
             <div className={styles.image} style={{backgroundImage: `url(${image})`}}>\
-                <span className={styles.title}>Posts</span>
+                <Card  headStyle={{padding:0}}
+                       bodyStyle={{padding: 0, paddingRight: 10, paddingLeft: 10}}
+                       className={styles.title}>Posts</Card>
             </div>
             {postsIds.map(postId => (
                 <Post  key={postId} postId={postId}/>

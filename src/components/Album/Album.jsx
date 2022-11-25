@@ -22,7 +22,7 @@ export const Album = ({albumId}) => {
     }
 
     return(
-        <Slider/>
+        <Slider albumId={albumId}/>
     );
 
 }

@@ -2,20 +2,22 @@ import {createAsyncThunk, createEntityAdapter, createSlice} from "@reduxjs/toolk
 import {LoadingStatuses} from "../../constants/LoadingStatuses";
 import axios from "axios";
 
-const photosAdapter = createEntityAdapter();
+const photosAdapter = createEntityAdapter(
+    {sortComparer: (a, b) => a.id - b.id,}
+);
 
 
 export const fetchPhotos = createAsyncThunk(
     "photo/fetchPhotos",
     async (albumId, {getState, rejectWithValue}) => {
-        if (selectorsPhoto.selectIds(getState()).length > 0) {
+        if (selectorsPhoto.selectById(getState(), albumId)) {
             return rejectWithValue(LoadingStatuses.earlyAdded);
         }
 
 
         return await axios.get(`https://jsonplaceholder.typicode.com/photos?albumId=${albumId}`)
             .then(response => {
-                return response.data;
+                return {id: albumId,  photos: response.data};
             });
     }
 );
@@ -35,7 +37,7 @@ export const photoSlice = createSlice({
                 state.status = LoadingStatuses.pending;
             })
             .addCase(fetchPhotos.fulfilled, (state, { payload }) => {
-                photosAdapter.setAll(state, payload);
+                photosAdapter.upsertOne(state, payload);
                 state.status = LoadingStatuses.success;
             })
             .addCase(fetchPhotos.rejected, (state, { payload }) => {
@@ -48,4 +50,4 @@ export const photoSlice = createSlice({
 
 export const selectorsPhoto = photosAdapter.getSelectors(store => store.photo);
 
-export const selectorIsPhotoLoading = (state) =>  state.comment.status === LoadingStatuses.pending;
+export const selectorIsPhotoLoading = (state) =>  state.photo.status === LoadingStatuses.pending;

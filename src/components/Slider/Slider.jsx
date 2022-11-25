@@ -1,39 +1,26 @@
-import {createContext, useContext, useState} from "react";
+import {useSelector} from "react-redux";
+import {selectorIsPhotoLoading, selectorsPhoto} from "../../store/photo";
+import {Space, Typography} from "antd";
+import {CaretLeftFilled, CaretRightFilled} from "@ant-design/icons";
 
-export const Slider = () => {
-    const themes = {
-        light: {
-            foreground: "#000000",
-            background: "#eeeeee",
-            status: "light",
-        },
-        dark: {
-            foreground: "#ffffff",
-            background: "#222222",
-            status: "dark",
+export const Slider = ({albumId}) => {
+    // const album = useSelector(state => selectorsAlbum.selectById(state, albumId));
+    const photos = useSelector(state => selectorsPhoto.selectById(state,albumId)?.photos);
 
-        }
-    };
+    if (!photos) return;
 
-    const [currentTheme, setTheme] = useState(themes.light);
+    return(
+        <Space style={{display: "flex", alignItems: "center"}}>
+            <CaretLeftFilled  style={{fontSize: "large"}}/>
+            <div style={{width: 150, height: 170, overflow:"hidden", display: "flex"}}>
+                {photos.map(photo => (
+                    <div style={{display:"flex", flexDirection: "column",width: 150, height: 150}}>
+                        <img style={{ maxHeight:"100%"}} key={photo.id}  src={photo.url} alt=""/>
+                        <Typography style={{position: "relative", display: "block", height: 50}}>{photo.title}</Typography>
+                    </div>))};
+            </div>
+            <CaretRightFilled style={{fontSize: "large"}}/>
+        </Space>
 
-    const ThemeContext = createContext(currentTheme);
-
-    return (
-            <ThemeContext.Provider value={currentTheme}>
-                <ThemedButton />
-            </ThemeContext.Provider>
-        );
-
-    function ThemedButton() {
-        const theme = useContext(ThemeContext);
-        const newTheme = theme.status === themes.light.status? themes.dark : themes.light;
-        return (
-            <button onClick={()=> setTheme(newTheme)}
-                    style={{ background: theme.background, color: theme.foreground }}
-            >
-                Toggle
-            </button>
-        );
-    }
+    );
 }

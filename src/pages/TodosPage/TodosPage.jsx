@@ -1,25 +1,59 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
-import {actionsTodo, selectorsTodo} from "../../store/todo";
+import {fetchTodos, selectorsTodo} from "../../store/todo";
+import {Todos} from "../../components/Todos/Todos";
+import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
+import {Card, Typography} from "antd";
+import {TodoColumn} from "../../components/TodoColumn/TodoColumn";
 
 export const TodosPage = () => {
     const dispatch = useDispatch();
-    const todoEntities = useSelector(selectorsTodo.selectEntities);
-    const todoIds = useSelector(selectorsTodo.selectIds);
+    const itemIds = useSelector(selectorsTodo.selectIds);
+    const items = useSelector(selectorsTodo.selectEntities);
 
     useEffect(() => {
-        axios.get("https://jsonplaceholder.typicode.com/todos")
-            .then(response => {
-                dispatch(actionsTodo.addTodos(response.data));
-            });
+        dispatch(fetchTodos())
     }, []);
+
+    // const items = [
+    //     {id: "1", name: "Fuck"},
+    //     {id: "2", name: "Nice"},
+    //     {id: "3", name: "Meme"},
+    //
+    // ]
+
+    if (!itemIds.length) return;
+
+    const columns = [
+        {
+            id: "1",
+            title: "inProgress",
+            items: []
+        },
+        {
+            id: "2",
+            title: "Completed",
+            items: []
+        }
+    ];
+
+    itemIds.map(itemId =>
+    {
+        items[itemId].completed ? columns[1].items.push(items[itemId]) : columns[0].items.push(items[itemId]);
+    })
+
+
+
+    const onDragEnd = () => {};
 
     return (
         <div>
-            {todoIds.map(id => (
-                <div key={id}>{todoEntities[id].title}</div>
-            ))}
+            <DragDropContext onDragEnd={onDragEnd}>
+                {columns.map((column) => (
+                    <TodoColumn key={column.id} column={column}/>
+                ))}
+                {/*<Todos key={id} todoId={id}/>*/}
+            </DragDropContext>
         </div>
     );
 };

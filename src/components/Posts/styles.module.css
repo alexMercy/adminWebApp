@@ -19,9 +19,7 @@
 .title {
   font-size: 64px;
   font-weight: 700;
-  color: white;
-  background: black;
-  padding: 0 50px 10px 50px;
+  border-radius: 0;
 }
 
 /*# sourceMappingURL=styles.module.css.map */
