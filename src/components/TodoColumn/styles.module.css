@@ -1,0 +1,14 @@
+.line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 20px;
+  width: 7px;
+  height: calc(100% + 30px);
+}
+
+.droppableCol {
+  position: relative;
+}
+
+/*# sourceMappingURL=styles.module.css.map */

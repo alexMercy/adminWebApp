@@ -19,13 +19,17 @@ const themes = {
     }
 };
 
+const itemStyled = {
+    fontWeight: 900,
+    fontSize: 16,
+}
 
 const items = [
     getItem({label: <Link to="/"><HomeFilled style={{fontSize: 18}} /></Link>, key: "home"}),
     getItem({type: "divider"}),
-    getItem({label:<Link to="/todos">Todos</Link>, key: "todos"}),
-    getItem({label: <Link to="/posts">Posts</Link>, key: "posts"}),
-    getItem({label: <Link to="/albums">Albums</Link>, key: "albums"}),
+    getItem({label:<Link to="/todos" style={itemStyled}>Todos</Link>, key: "todos"}),
+    getItem({label: <Link to="/posts" style={itemStyled}>Posts</Link>, key: "posts"}),
+    getItem({label: <Link to="/albums" style={itemStyled}>Albums</Link>, key: "albums"}),
 ]
 
 export const CustomLayout = () => {

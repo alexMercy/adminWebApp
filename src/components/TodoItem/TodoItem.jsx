@@ -30,13 +30,12 @@ export const TodoItem = ({item, index, onDeleteClick, droppableId}) => {
         <Draggable index={index} draggableId={item.id + ''}>
             {(provided) => (
                 <div ref={provided.innerRef}{...provided.draggableProps}{...provided.dragHandleProps}>
-
                     <Card title={item.completed
                             ? <Tag color={"lime"}>COMPLETED</Tag>
                             : <Tag color={"volcano"}>IN PROGRESS</Tag>}
                           type={"inner"}
                           bordered={false}
-                          style={{maxWidth: 300, minHeight: 200, marginBottom: 20, fontSize:14}}
+                          style={{marginLeft: "10%", maxWidth: 300, minHeight: 200, marginBottom: 20, fontSize:14}}
                           hoverable="true"
 
                           extra={<Button onClick={() => onDeleteClick(item,droppableId, index)}
