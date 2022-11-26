@@ -18,6 +18,29 @@ export const fetchTodos = createAsyncThunk(
 );
 
 
+export const updateTodo = createAsyncThunk(
+    "todo/updateTodo",
+    (item, { rejectWithValue}) => {
+
+        return axios.patch(`https://jsonplaceholder.typicode.com/todos/${item.id}`,
+            item,
+            {'Content-type': 'application/json; charset=UTF-8'})
+            .then(response => (response.data))
+            .catch(() => rejectWithValue(LoadingStatuses.failed));
+    }
+);
+
+export const deleteTodo = createAsyncThunk(
+    "todo/deleteTodo",
+    (item, { rejectWithValue}) => {
+
+        return axios.delete(`https://jsonplaceholder.typicode.com/todos/${item.id}`)
+            .then(response => response.data)
+            .catch(() => rejectWithValue(LoadingStatuses.failed));
+    }
+);
+
+
 
 export const todoSlice = createSlice({
     name: "todo",
@@ -40,9 +63,32 @@ export const todoSlice = createSlice({
                     payload === LoadingStatuses.earlyAdded
                         ? LoadingStatuses.success
                         : LoadingStatuses.failed;
+            })
+
+            .addCase(updateTodo.pending, (state) => {
+                state.status = LoadingStatuses.pending;
+            })
+            .addCase(updateTodo.fulfilled, (state, { payload }) => {
+                todosAdapter.updateOne(state, payload);
+                state.status = LoadingStatuses.success;
+            })
+            .addCase(updateTodo.rejected, (state) => {
+            state.status = LoadingStatuses.failed;
+            })
+
+            .addCase(deleteTodo.pending, (state) => {
+                state.status = LoadingStatuses.pending;
+            })
+            .addCase(deleteTodo.fulfilled, (state) => {
+                state.status = LoadingStatuses.success;
+            })
+            .addCase(deleteTodo.rejected, (state) => {
+                state.status = LoadingStatuses.failed;
             }),
 });
 
 export const selectorsTodo = todosAdapter.getSelectors(store => store.todo);
 
 export const selectorIsTodoLoading = (state) =>  state.todo.status === LoadingStatuses.pending;
+export const selectorIsTodoSuccess = (state) =>  state.todo.status === LoadingStatuses.success;
+export const selectorIsTodoStatus = (state) =>  state.todo.status;

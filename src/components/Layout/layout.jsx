@@ -50,7 +50,7 @@ export const CustomLayout = () => {
                 }}>
                     <Row>
                         <Col span={1}></Col>
-                        <Col span={5}>
+                        <Col span={12}>
                             <Menu
                                 mode="horizontal"
                                 defaultSelectedKeys={location.pathname.split("/")[1]}

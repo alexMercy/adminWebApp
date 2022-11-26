@@ -8,13 +8,14 @@ export const Title = ({video, title}) => {
         height: 150,
         fontSize: 48,
         margin: 0,
-        alignItems: "center"
+        alignItems: "center",
+        borderRadius: 0,
     });
 
     const onAffixChange = (affixed) => {
         affixed
-            ? setAffixEffect({height: 50, fontSize: 24, margin: 5, alignItems: ""})
-            :setAffixEffect({height: 150, fontSize: 48, margin: 0, alignItems: "center"});
+            ? setAffixEffect({height: 50, fontSize: 24, margin: 5, alignItems: "", borderRadius: 20})
+            :setAffixEffect({height: 150, fontSize: 48, margin: 0, alignItems: "center", borderRadius: 0});
     }
 
     return (
@@ -28,10 +29,10 @@ export const Title = ({video, title}) => {
                 <Card  headStyle={{padding:0}}
                        bodyStyle={{padding: 0, paddingRight: 10, paddingLeft: 10}}
                        className={styles.title}
-                       style={{fontSize: affixEffect.fontSize,
-                           marginLeft: affixEffect.margin + "%", marginRight:affixEffect.margin + (80 * !!affixEffect.margin) + "%"}}
+                       style={{fontSize: affixEffect.fontSize, borderRadius: affixEffect.borderRadius,
+                           marginLeft: affixEffect.margin + "%",
+                           marginRight:affixEffect.margin + (80 * !!affixEffect.margin) + "%"}}
                 >{title}</Card>
-
             </div>
         </Affix>
     );

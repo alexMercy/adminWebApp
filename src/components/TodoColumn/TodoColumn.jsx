@@ -4,7 +4,7 @@ import React from "react";
 import {TodoItem} from "../TodoItem/TodoItem";
 
 
-export const TodoColumn = ({data, droppableId}) => {
+export const TodoColumn = ({data, droppableId, onDeleteClick}) => {
     return (
         <>
         <Col span={4}>
@@ -13,7 +13,8 @@ export const TodoColumn = ({data, droppableId}) => {
                 {(provided) => (
                     <div ref={provided.innerRef}{...provided.droppableProps} className="droppable-col">
                         {data.items.map((item, index)=> (
-                            <TodoItem key={item.id} item={item} index={index}/>
+                            <TodoItem key={item.id} droppableId={droppableId}
+                                      item={item} index={index} onDeleteClick={onDeleteClick}/>
                         ))}
                         {provided.placeholder}
                     </div>
