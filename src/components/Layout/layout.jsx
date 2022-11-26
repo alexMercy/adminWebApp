@@ -1,9 +1,8 @@
 import {Link, Outlet, useLocation} from "react-router-dom";
 import {Col, ConfigProvider, Layout, Menu, Row, theme, FloatButton, Switch, Affix} from "antd";
 import {getItem} from "../../utils/getMenuItem";
-import logo from "../../img/logo.png"
 import {createContext, useContext, useState} from "react";
-import {BulbOutlined, BulbTwoTone} from "@ant-design/icons";
+import {HomeFilled, ThunderboltFilled, ThunderboltOutlined} from "@ant-design/icons";
 
 const {Header, Content, Footer} = Layout;
 
@@ -22,6 +21,8 @@ const themes = {
 
 
 const items = [
+    getItem({label: <Link to="/"><HomeFilled style={{fontSize: 18}} /></Link>, key: "home"}),
+    getItem({type: "divider"}),
     getItem({label:<Link to="/todos">Todos</Link>, key: "todos"}),
     getItem({label: <Link to="/posts">Posts</Link>, key: "posts"}),
     getItem({label: <Link to="/albums">Albums</Link>, key: "albums"}),
@@ -39,17 +40,16 @@ export const CustomLayout = () => {
         <ConfigProvider theme={themeContext.algorithm}>
             <Layout>
                 <Header style={{
-                    opacity: 0.96,
                     position: 'sticky',
                     top: 0,
-                    zIndex: 1,
+                    zIndex: 2,
                     width: '100%',
                     padding:0,
                     background: `${themeContext.background}`,
                     marginBottom: 20
                 }}>
                     <Row>
-                        <Col span={2}></Col>
+                        <Col span={1}></Col>
                         <Col span={5}>
                             <Menu
                                 mode="horizontal"
@@ -60,8 +60,8 @@ export const CustomLayout = () => {
                         <Col span={2} style={{display:"flex", justifyContent:"center", alignItems: "center"}}>
                             <ThemeProvider.Provider value={currentTheme}>
                                 <Switch
-                                    checkedChildren={<BulbTwoTone />}
-                                    unCheckedChildren={<BulbOutlined />}
+                                    checkedChildren={<ThunderboltFilled />}
+                                    unCheckedChildren={<ThunderboltOutlined/>}
                                     defaultChecked={currentTheme.status === themes.light.status}
                                     onChange={(checked) =>
                                         setTheme(checked? themes.light : themes.dark )}/>

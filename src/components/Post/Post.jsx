@@ -7,21 +7,25 @@ import {Card} from "antd";
 
 export const Post = ({postId}) => {
 
-    const {userId, title, body} = useSelector(state =>  selectorsPost.selectById(state, postId));
-    const {name} = useSelector(state => selectorsUser.selectById(state, userId));
 
-    //TODO: доделать CRUD, добавить кнопку назад на отдельном посте
+    const post = useSelector(state =>  selectorsPost.selectById(state, postId));
+    const user = useSelector(state => selectorsUser.selectById(state, post?.userId));
+
+    if (!(post && user)) return;
+
     return (
         <Link  to={"/posts/" + postId}>
             <Card
-                title={title}
+                title={post.title}
                 extra={<div style={{color: '#1677ff'}}>More</div>}
                 bordered={false}
-                style={{width: 900, marginBottom: 20, fontSize:14}}
+                style={{width: 370,
+                        marginBottom: 20, fontSize:14}}
                 hoverable="true"
             >
-                <p>{body}</p>
-                <h5 style={{textAlign: "right"}}>Author: {name}</h5>
+
+                <p style={{height: 150, display:"flex", alignItems:"center"}}>{post.body}</p>
+                <h5 style={{textAlign: "right"}}>Author: {user.name}</h5>
             </Card>
         </Link>
     );
