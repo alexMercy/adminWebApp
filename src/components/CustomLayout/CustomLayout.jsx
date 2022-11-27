@@ -79,7 +79,7 @@ export const CustomLayout = () => {
                                              justifyContent: "center", alignItems: "center"}}/>
                 </Content>
                 <Affix offsetBottom={0}>
-                    <Footer  style={{ textAlign: 'center', fontWeight: 700 }}>Task project. Result in 6 days. by ALEX. ©2022. </Footer>
+                    <Footer  style={{ textAlign: 'center', fontWeight: 700 }}>My first JS Project. Result in 6 days. by ALEX. ©2022. </Footer>
                 </Affix>
             </Layout>
         </ConfigProvider>
