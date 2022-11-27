@@ -74,10 +74,12 @@ export const CustomLayout = () => {
                 </Header>
                 <Content>
                     <Outlet/>
-                    <FloatButton.BackTop tooltip={<div>Back on top</div>} style={{height: 60, width:60, display: "flex", justifyContent: "center", alignItems: "center"}}/>
+                    <FloatButton.BackTop tooltip={<div>Back on top</div>}
+                                         style={{height: 60, width:60, display: "flex",
+                                             justifyContent: "center", alignItems: "center"}}/>
                 </Content>
                 <Affix offsetBottom={0}>
-                    <Footer  style={{ textAlign: 'center' }}>Task project. Created by ALEX. ©2022 </Footer>
+                    <Footer  style={{ textAlign: 'center', fontWeight: 700 }}>Task project. Result in 6 days. by ALEX. ©2022. </Footer>
                 </Affix>
             </Layout>
         </ConfigProvider>

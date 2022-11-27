@@ -6,6 +6,7 @@ import video from "../../videos/todosBack.mp4";
 import {Title} from "../../components/Title/Title";
 
 
+
 export const TodosPage = () => {
 
     const itemIds = useSelector(selectorsTodo.selectIds);
@@ -19,7 +20,7 @@ export const TodosPage = () => {
 
     return(
         <>
-            <Title video={video} title="Todos"/>
+            <div style={{marginBottom:20}}><Title video={video} title="Todos"/></div>
             <TodoColumns/>
         </>
     );

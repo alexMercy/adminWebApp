@@ -1,0 +1,30 @@
+.root{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+
+
+}
+
+.todo{
+  transition: all 0.3s ease-in-out;
+  &:hover {
+      background-color: rgba(155, 78, 31, 0.7);
+  }
+}
+
+.post{
+  transition: all 0.3s ease-in-out;
+  &:hover {
+      background-color: rgba(57, 1, 155, 0.7);
+  }
+}
+
+.album{
+  transition: all 0.3s ease-in-out;
+  &:hover {
+      background-color: rgba(106, 2, 147, 0.7);
+  }
+}
+

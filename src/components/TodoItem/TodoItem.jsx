@@ -35,7 +35,7 @@ export const TodoItem = ({item, index, onDeleteClick, droppableId}) => {
                             : <Tag color={"volcano"}>IN PROGRESS</Tag>}
                           type={"inner"}
                           bordered={false}
-                          style={{marginLeft: "10%", maxWidth: 300, minHeight: 200, marginBottom: 20, fontSize:14}}
+                          style={{marginLeft: "10%", maxWidth: 300, minHeight: 200, maxHeight: 500, marginBottom: 20, fontSize:14}}
                           hoverable="true"
 
                           extra={<Button onClick={() => onDeleteClick(item,droppableId, index)}
@@ -51,13 +51,13 @@ export const TodoItem = ({item, index, onDeleteClick, droppableId}) => {
                                     tooltip: 'Edit',
                                     onChange: onChangeText,
                                     triggerType: ["icon", "text"],
+                                    maxLength: 300,
 
                                 }}
                                 style={{fontWeight: 500}}
                             >
                                 {text}
                             </Paragraph>
-
                     </Card>
                 </div>)}
         </Draggable>

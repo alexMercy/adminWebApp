@@ -14,7 +14,7 @@ export const PostsPage = () => {
 
     return (
         <>
-            <Title video={video} title="Posts"/>
+            <div style={{marginBottom:20}}><Title video={video} title="Posts"/></div>
             <Posts />
         </>
     );

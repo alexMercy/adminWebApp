@@ -58,14 +58,14 @@ export const Slider = ({albumId}) => {
         <div>
             <Row style={{height: "84.4vh"}}>
                 <Col flex={1}>
-                    <div style={{height: "10vh"}}></div>
+                    <div style={{height: "10vh", }}></div>
                     <Button onClick={() => onButtonClick(-1)} className={styles.button} style={{width: "100%"}}
                             type={"text"}
                             icon={<LeftOutlined />}/>
                 </Col>
                 <Col flex={3} style={{display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column"}} >
                     <div style={{height: "10vh", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 114}}>
-                        <Typography.Title style={{display: "flex", justifyContent:"center"}}
+                        <Typography.Title style={{display: "flex", justifyContent:"center", fontWeight: 900}}
                                           level={3}>Photo #{state.currentId + 1}</Typography.Title>
                     </div>
                     <div style={{display: "flex", alignItems: "center", justifyContent: "space-around",
@@ -73,7 +73,7 @@ export const Slider = ({albumId}) => {
 
                         <img style={{width: 500}} alt={photo.title} src={photo.url}/>
                         <Typography.Title  level={3}>
-                            <span style={{display:"block", height: 64, textAlign: "center"}}>{photo.title}</span
+                            <span style={{display:"block", height: 64, textAlign: "center", fontWeight: 700}}>{photo.title}</span
                             ></Typography.Title>
                     </div>
 

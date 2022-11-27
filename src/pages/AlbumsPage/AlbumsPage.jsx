@@ -1,30 +1,16 @@
 import React from "react";
 import {Albums} from "../../components/Albums/Albums";
+import {Title} from "../../components/Title/Title";
+import albumsVideo from "../../videos/albumsBack.mp4";
 
 
 
 export const AlbumsPage = () => {
 
     return (
-        <Albums />
+        <>
+        <div style={{marginBottom:20}}><Title video={albumsVideo} title="Albums"/></div>
+            <Albums />
+        </>
     );
-    // const dispatch = useDispatch();
-    // const albumsEntities = useSelector(selectorsAlbum.selectEntities);
-    // const albumsIds = useSelector(selectorsAlbum.selectIds);
-    //
-    // useEffect(() => {
-    //     axios.get("https://jsonplaceholder.typicode.com/albums")
-    //         .then(response => {
-    //             dispatch(actionsAlbum.addAlbums(response.data));
-    //         });
-    //
-    // }, []);
-    //
-    // return (
-    //     <div>
-    //         {albumsIds.map(id => (
-    //             <div key={id}>{albumsEntities[id].title}</div>
-    //         ))}
-    //     </div>
-    // );
 };

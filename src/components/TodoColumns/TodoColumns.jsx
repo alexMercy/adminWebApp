@@ -1,15 +1,18 @@
 import {DragDropContext} from "react-beautiful-dnd";
 import {Col, Row} from "antd";
 import _ from "lodash";
+import { v4 as uuid } from 'uuid';
 import {TodoColumn} from "../TodoColumn/TodoColumn";
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {
+    addTodo,
     deleteTodo,
     selectorIsTodoSuccess,
     selectorsTodo,
     updateTodo
 } from "../../store/todo";
+import {CreateTodoItem} from "../CreateTodoItem/CreateTodoItem";
 
 function filterItems(itemIds, items) {
 
@@ -92,16 +95,44 @@ export const TodoColumns = () => {
         }
     }
 
+    const onAddClick = (item) => {
+
+        const dataItem = {
+            userId: uuid(),
+            id: uuid(),
+            title: item.text,
+            completed: item.tag.status === "COMPLETED"
+        }
+
+        dispatch(addTodo(dataItem));
+
+
+        if (isTodoSuccess) {
+            const droppableId = item.tag.status === "COMPLETED" ? "completed" : "inProgress";
+
+            setColumns(prevState => {
+                prevState = {...prevState};
+                prevState[droppableId].items.push(dataItem);
+                return prevState;
+            })
+        }
+
+    }
+
     return (
         <div>
             <DragDropContext onDragEnd={onDragEnd}>
                 <Row>
-                    <Col span={5}/>
+                    <Col span={4}/>
                     <>
                         {_.map(columns, (data, key) => (
                             <TodoColumn key={key} data={data} droppableId={key} onDeleteClick={onDeleteClick}/>
                         ))}
                     </>
+                    <Col span={1}/>
+                    <Col span={4}>
+                        <CreateTodoItem onAddClick={onAddClick}/>
+                    </Col>
                 </Row>
             </DragDropContext>
         </div>

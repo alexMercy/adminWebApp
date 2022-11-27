@@ -30,6 +30,18 @@ export const updateTodo = createAsyncThunk(
     }
 );
 
+export const addTodo = createAsyncThunk(
+    "todo/addTodo",
+    (item, { rejectWithValue}) => {
+
+        return axios.post(`https://jsonplaceholder.typicode.com/todos/`,
+            item,
+            {'Content-type': 'application/json; charset=UTF-8'})
+            .then(response => (response.data))
+            .catch(() => rejectWithValue(LoadingStatuses.failed));
+    }
+);
+
 export const deleteTodo = createAsyncThunk(
     "todo/deleteTodo",
     (item, { rejectWithValue}) => {
@@ -83,6 +95,17 @@ export const todoSlice = createSlice({
                 state.status = LoadingStatuses.success;
             })
             .addCase(deleteTodo.rejected, (state) => {
+                state.status = LoadingStatuses.failed;
+            })
+
+            .addCase(addTodo.pending, (state) => {
+                state.status = LoadingStatuses.pending;
+            })
+            .addCase(addTodo.fulfilled, (state, { payload }) => {
+                todosAdapter.addOne(state, payload);
+                state.status = LoadingStatuses.success;
+            })
+            .addCase(addTodo.rejected, (state) => {
                 state.status = LoadingStatuses.failed;
             }),
 });
