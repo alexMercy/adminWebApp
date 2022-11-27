@@ -1,6 +1,6 @@
 import './App.css';
 import { PostsPage} from "./pages/PostsPage/PostsPage";
-import {CustomLayout} from "./components/Layout/layout";
+import {CustomLayout} from "./components/CustomLayout/CustomLayout";
 import {Route, Routes} from "react-router-dom";
 import {TodosPage} from "./pages/TodosPage/TodosPage";
 import {AlbumsPage} from "./pages/AlbumsPage/AlbumsPage";

@@ -29,7 +29,6 @@ function filterItems(itemIds, items) {
     return filteredItems;
 }
 
-
 export const TodoColumns = () => {
 
     const itemIds = useSelector(selectorsTodo.selectIds);

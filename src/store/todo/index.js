@@ -12,7 +12,7 @@ export const fetchTodos = createAsyncThunk(
             return rejectWithValue(LoadingStatuses.earlyAdded);
         }
 
-        return axios.get("https://jsonplaceholder.typicode.com/todos?_limit=10")
+        return axios.get("https://jsonplaceholder.typicode.com/todos")
             .then(response => response.data);
     }
 );
@@ -112,6 +112,4 @@ export const todoSlice = createSlice({
 
 export const selectorsTodo = todosAdapter.getSelectors(store => store.todo);
 
-export const selectorIsTodoLoading = (state) =>  state.todo.status === LoadingStatuses.pending;
 export const selectorIsTodoSuccess = (state) =>  state.todo.status === LoadingStatuses.success;
-export const selectorIsTodoStatus = (state) =>  state.todo.status;
