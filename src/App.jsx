@@ -7,6 +7,7 @@ import {AlbumsPage} from "./pages/AlbumsPage/AlbumsPage";
 import {SinglePostPage} from "./pages/SinglePostPage/SinglePostPage";
 import {NotFoundPage} from "./pages/NotFoundPage/NotFoundPage";
 import {HomePage} from "./pages/HomePage/HomePage";
+import {SingleAlbumPage} from "./pages/SingleAlbumPage/SingleAlbumPage";
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
                 <Route path="/posts" element={<PostsPage/>}/>
                 <Route path="/posts/:id" element={<SinglePostPage/>}/>
                 <Route path="/albums" element={<AlbumsPage/>}/>
+                <Route path="/albums/:id" element={<SingleAlbumPage/>}/>
                 <Route path="*" element={<NotFoundPage/>}/>
             </Route>
         </Routes>);

@@ -2,13 +2,14 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  padding: 0 10%;
 }
 .root > * {
-  flex: 1 1 12%;
+  flex: 1 1 20%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 /*# sourceMappingURL=styles.module.css.map */

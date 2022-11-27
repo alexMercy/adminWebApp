@@ -1,28 +1,33 @@
-import {useDispatch, useSelector} from "react-redux";
-import {fetchUsers, selectorIsUserLoading, selectorsUser} from "../../store/user";
-import {fetchAlbums, selectorsAlbum} from "../../store/album";
-import {fetchPhotos, selectorIsPhotoLoading} from "../../store/photo";
-import {useEffect} from "react";
-import {Slider} from "../Slider/Slider";
+import {useSelector} from "react-redux";
+import {selectorsUser} from "../../store/user";
+import {selectorsAlbum} from "../../store/album";
+import {selectorsPhoto} from "../../store/photo";
+import {Card} from "antd";
+import {Link} from "react-router-dom";
+
+const {Meta} = Card;
 
 export const Album = ({albumId}) => {
     const album = useSelector(state => selectorsAlbum.selectById(state, albumId));
-    const user = useSelector(state => selectorsUser.selectById(state, album?.userId));
+    const user = useSelector(state => selectorsUser.selectById(state, album.userId));
+    const photosEntity = useSelector(state => selectorsPhoto.selectById(state, albumId));
 
-    const isPhotosLoading = useSelector(state => selectorIsPhotoLoading(state));
+    if (! (album && user && photosEntity)) return;
 
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(fetchPhotos(albumId));
-    },[albumId]);
-
-    if (isPhotosLoading) {
-        return (<div>Loading...</div>)
-    }
+    const photo = photosEntity.photos[0];
 
     return(
-        <Slider albumId={albumId}/>
+        <Link to={"/albums/" + albumId}>
+            <Card
+                hoverable
+                style={{
+                    width: 240,
+                }}
+                cover={<img alt="album" src={photo.url} />}
+            >
+                <Meta title={photo.title} description={photo.url} />
+            </Card>
+        </Link>
     );
 
 }

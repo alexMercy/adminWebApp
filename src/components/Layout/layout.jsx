@@ -33,14 +33,13 @@ const items = [
 ]
 
 export const CustomLayout = () => {
-    const [currentTheme, setTheme] = useState(themes.light);
+    const [currentTheme, setTheme] = useState(themes.dark);
     const ThemeProvider = createContext(currentTheme);
 
     const location = useLocation();
     const themeContext = useContext(ThemeProvider);
 
     return (
-
         <ConfigProvider theme={themeContext.algorithm}>
             <Layout>
                 <Header style={{

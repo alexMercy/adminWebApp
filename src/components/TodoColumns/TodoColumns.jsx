@@ -102,18 +102,6 @@ export const TodoColumns = () => {
                             <TodoColumn key={key} data={data} droppableId={key} onDeleteClick={onDeleteClick}/>
                         ))}
                     </>
-                    <Col span={1}/>
-                    <Col flex={"auto"}>
-                        {/*<Affix offsetTop={200}>*/}
-                        {/*    <Typography.Title style={{fontWeight:900}} level={3}>Create:</Typography.Title>*/}
-                        {/*    <Card title={"someToo"} bordered={false}*/}
-                        {/*          style={{ maxWidth: 300, minHeight: 200, fontSize:14}}*/}
-                        {/*    >*/}
-                        {/*        some*/}
-                        {/*    </Card>*/}
-                        {/*</Affix>*/}
-                    </Col>
-
                 </Row>
             </DragDropContext>
         </div>

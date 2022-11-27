@@ -9,13 +9,14 @@ const photosAdapter = createEntityAdapter(
 
 export const fetchPhotos = createAsyncThunk(
     "photo/fetchPhotos",
-    async (albumId, {getState, rejectWithValue}) => {
-        if (selectorsPhoto.selectById(getState(), albumId)) {
+    async ({albumId, isCover}, {getState, rejectWithValue}) => {
+        const photos = selectorsPhoto.selectById(getState(), albumId)?.photos;
+        if (photos?.length > 1) {
             return rejectWithValue(LoadingStatuses.earlyAdded);
         }
 
 
-        return await axios.get(`https://jsonplaceholder.typicode.com/photos?albumId=${albumId}`)
+        return await axios.get(`https://jsonplaceholder.typicode.com/photos?albumId=${albumId}${isCover? "&_limit=1" : ""}`)
             .then(response => {
                 return {id: albumId,  photos: response.data};
             });
