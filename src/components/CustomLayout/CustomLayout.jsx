@@ -39,9 +39,11 @@ export const CustomLayout = () => {
     const location = useLocation();
     const themeContext = useContext(ThemeProvider);
 
+    const d = 230;
+
     return (
-        <ConfigProvider theme={themeContext.algorithm}>
-            <Layout>
+        <ConfigProvider  theme={themeContext.algorithm}>
+            <Layout style={{transition: `all ${d}ms ease-in-out`,}}>
                 <Header style={{
                     position: 'sticky',
                     top: 0,
@@ -49,12 +51,15 @@ export const CustomLayout = () => {
                     width: '100%',
                     padding:0,
                     background: `${themeContext.background}`,
-                    marginBottom: 20
+                    marginBottom: 20,
+                    transition: `all ${d}ms ease-in-out`,
+
                 }}>
                     <Row>
                         <Col span={1}></Col>
                         <Col span={12}>
                             <Menu
+                                style={{transition: `all ${d}ms ease-in-out`,}}
                                 mode="horizontal"
                                 defaultSelectedKeys={location.pathname.split("/")[1]}
                                 items={items}/>
@@ -72,7 +77,7 @@ export const CustomLayout = () => {
                         </Col>
                     </Row>
                 </Header>
-                <Content>
+                <Content >
                     <Outlet/>
                     <FloatButton.BackTop tooltip={<div>Back on top</div>}
                                          style={{height: 60, width:60, display: "flex",
