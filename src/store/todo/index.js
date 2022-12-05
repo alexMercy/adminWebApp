@@ -11,7 +11,7 @@ export const fetchTodos = createAsyncThunk(
         if (selectorsTodo.selectIds(getState()).length > 0) {
             return rejectWithValue(LoadingStatuses.earlyAdded);
         }
-
+        console.log("wanna localhost ")
         return axios.get("http://localhost:3300/todos?_limit=10")
             .then(response => response.data);
     }
