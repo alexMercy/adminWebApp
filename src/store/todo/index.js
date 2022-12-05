@@ -12,7 +12,7 @@ export const fetchTodos = createAsyncThunk(
             return rejectWithValue(LoadingStatuses.earlyAdded);
         }
 
-        return axios.get("https://jsonplaceholder.typicode.com/todos")
+        return axios.get("http://localhost:3300/todos?_limit=10")
             .then(response => response.data);
     }
 );
@@ -22,7 +22,7 @@ export const updateTodo = createAsyncThunk(
     "todo/updateTodo",
     (item, { rejectWithValue}) => {
 
-        return axios.patch(`https://jsonplaceholder.typicode.com/todos/${item.id}`,
+        return axios.patch(`http://localhost:3300/todos/${item.id}`,
             item,
             {'Content-type': 'application/json; charset=UTF-8'})
             .then(response => (response.data))
@@ -34,8 +34,8 @@ export const addTodo = createAsyncThunk(
     "todo/addTodo",
     (item, { rejectWithValue}) => {
 
-        return axios.post(`https://jsonplaceholder.typicode.com/todos/`,
-            item,
+        return axios.post(`http://localhost:3300/todos/`,
+            JSON.stringify(item),
             {'Content-type': 'application/json; charset=UTF-8'})
             .then(response => (response.data))
             .catch(() => rejectWithValue(LoadingStatuses.failed));
@@ -46,7 +46,7 @@ export const deleteTodo = createAsyncThunk(
     "todo/deleteTodo",
     (item, { rejectWithValue}) => {
 
-        return axios.delete(`https://jsonplaceholder.typicode.com/todos/${item.id}`)
+        return axios.delete(`http://localhost:3300/todos/${item.id}`)
             .then(response => response.data)
             .catch(() => rejectWithValue(LoadingStatuses.failed));
     }
