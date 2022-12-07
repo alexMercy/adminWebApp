@@ -66,7 +66,9 @@ export const TodoColumns = () => {
 
         const itemCopy = {...columns[source.droppableId].items[source.index]};
 
-        itemCopy.completed = !itemCopy.completed;
+        if(destination.droppableId !== source.droppableId) {
+            itemCopy.completed = !itemCopy.completed;
+        }
 
         dispatch(updateTodo(itemCopy));
 
@@ -97,7 +99,7 @@ export const TodoColumns = () => {
     const onAddClick = (item) => {
 
         const dataItem = {
-            userId: uuid(),
+            userId: "1",
             id: uuid(),
             title: item.text,
             completed: item.tag.status === "COMPLETED"
