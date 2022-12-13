@@ -9,7 +9,7 @@ export const fetchAlbums = createAsyncThunk(
             return rejectWithValue(LoadingStatuses.earlyAdded);
         }
 
-        return axios.get("https://jsonplaceholder.typicode.com/albums")
+        return axios.get("http://localhost:3300/albums")
             .then(response => response.data);
     }
 );

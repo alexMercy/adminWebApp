@@ -16,7 +16,7 @@ export const fetchPhotos = createAsyncThunk(
         }
 
 
-        return await axios.get(`https://jsonplaceholder.typicode.com/photos?albumId=${albumId}${isCover? "&_limit=1" : ""}`)
+        return await axios.get(`http://localhost:3300/photos?albumId=${albumId}${isCover? "&_limit=1" : ""}`)
             .then(response => {
                 return {id: albumId,  photos: response.data};
             });

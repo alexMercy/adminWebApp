@@ -13,7 +13,7 @@ export const fetchComments = createAsyncThunk(
         }
 
 
-        return await axios.get(`https://jsonplaceholder.typicode.com/comments?postId=${postId}`)
+        return await axios.get(`http://localhost:3300/comments?postId=${postId}`)
             .then(response => {
                 return response.data;
             });

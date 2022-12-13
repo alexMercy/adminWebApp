@@ -12,7 +12,7 @@ export const fetchUsers = createAsyncThunk(
             return rejectWithValue(LoadingStatuses.earlyAdded);
         }
 
-        return axios.get("https://jsonplaceholder.typicode.com/users")
+        return axios.get("http://localhost:3300/users")
             .then(response => response.data);
     }
 );

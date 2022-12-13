@@ -11,7 +11,6 @@ export const fetchTodos = createAsyncThunk(
         if (selectorsTodo.selectIds(getState()).length > 0) {
             return rejectWithValue(LoadingStatuses.earlyAdded);
         }
-
         return axios.get("http://localhost:3300/todos?_limit=10")
             .then(response => response.data);
     }
@@ -33,9 +32,8 @@ export const updateTodo = createAsyncThunk(
 export const addTodo = createAsyncThunk(
     "todo/addTodo",
     (item, { rejectWithValue}) => {
-
         return axios.post(`http://localhost:3300/todos/`,
-            JSON.stringify(item),
+            item,
             {'Content-type': 'application/json; charset=UTF-8'})
             .then(response => (response.data))
             .catch(() => rejectWithValue(LoadingStatuses.failed));
